@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             RestaurantSeeder::class,
             CategorySeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }
