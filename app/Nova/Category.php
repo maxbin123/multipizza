@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\CategoryBranch;
+use App\Nova\Filters\CategoryRoot;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
@@ -91,7 +93,10 @@ class Category extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new CategoryBranch(),
+            new CategoryRoot(),
+        ];
     }
 
     /**
