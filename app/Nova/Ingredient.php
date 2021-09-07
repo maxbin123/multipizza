@@ -6,21 +6,18 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Currency;
-use Laravel\Nova\Fields\HasOneThrough;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
-class Product extends Resource
+class Ingredient extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Product::class;
+    public static $model = \App\Models\Ingredient::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -36,8 +33,6 @@ class Product extends Resource
      */
     public static $search = [
         'name',
-        'description',
-        'slug'
     ];
 
     public static $group = 'Products';
@@ -53,19 +48,14 @@ class Product extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('Name'),
-            Text::make('Description')->hideFromIndex(),
-            Image::make('Image'),
 
-            Currency::make('Price')->currency('RUB'),
+            BelongsToMany::make('Products')
+            ->fields(function () {
+                return [
+                    Currency::make('Price')->currency('RUB'),
+                ];
+            }),
 
-            BelongsTo::make('Category'),
-
-            BelongsToMany::make('Ingredients')
-                ->fields(function () {
-                    return [
-                        Currency::make('Price')->currency('RUB'),
-                    ];
-                }),
         ];
     }
 

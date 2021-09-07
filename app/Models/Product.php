@@ -13,4 +13,9 @@ class Product extends Model
         return $this->belongsTo(Category::class)->with('branch');
     }
 
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class)->withPivot('price');
+    }
+
 }
