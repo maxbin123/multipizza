@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef9734f31c4c5456d308030cf275b5bd",
+    "content-hash": "ac64e7d6b36bc9614d577de663ca5ddb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2642,6 +2642,51 @@
                 "source": "https://github.com/opis/closure/tree/3.6.2"
             },
             "time": "2021-04-09T13:42:10+00:00"
+        },
+        {
+            "name": "orlyapps/nova-belongsto-depend",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orlyapps/nova-belongsto-depend.git",
+                "reference": "ede8be90fe959eb59d459eaee0090dcd4e768244"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orlyapps/nova-belongsto-depend/zipball/ede8be90fe959eb59d459eaee0090dcd4e768244",
+                "reference": "ede8be90fe959eb59d459eaee0090dcd4e768244",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Orlyapps\\NovaBelongsToDepend\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orlyapps\\NovaBelongsToDepend\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/orlyapps/nova-belongsto-depend/issues",
+                "source": "https://github.com/orlyapps/nova-belongsto-depend/tree/3.0.0"
+            },
+            "time": "2021-05-25T11:31:04+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",

@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Category extends Resource
 {
@@ -53,9 +54,16 @@ class Category extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
 
-            BelongsTo::make('Branch'),
+            NovaBelongsToDepend::make('Branch')
+                ->options(\App\Models\Branch::all())
+                ->rules('required'),
 
-            BelongsTo::make('Parent', 'parent', Category::class),
+            NovaBelongsToDepend::make('Parent', 'parent', Category::class)
+                ->optionsResolve(function ($branch) {
+                    return $branch->categories;
+                })
+                ->dependsOn('Branch'),
+
             HasMany::make('Children', 'children', Category::class),
 
             Text::make('Name'),
