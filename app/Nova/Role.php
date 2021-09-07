@@ -33,6 +33,8 @@ class Role extends Resource
         'slug',
     ];
 
+    public static $group = 'Users';
+
     /**
      * Get the fields displayed by the resource.
      *
