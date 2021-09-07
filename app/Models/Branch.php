@@ -13,4 +13,9 @@ class Branch extends Model
     {
         return $this->hasMany(Restaurant::class);
     }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

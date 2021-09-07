@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BranchSeeder::class,
             RestaurantSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }
