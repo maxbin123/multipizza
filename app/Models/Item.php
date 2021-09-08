@@ -18,7 +18,7 @@ class Item extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class)->withPivot('price');
     }
 
     public function product()
@@ -34,5 +34,13 @@ class Item extends Model
     public function getPriceAttribute($value)
     {
         return is_null($value) ? $this->product->price : $value;
+    }
+
+    public function getSumAttribute($value)
+    {
+        $ingredients_sum = $this->ingredients->sum('pivot.price');
+        $item_sum = $this->price * $this->quantity;
+
+        return $ingredients_sum + $item_sum;
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class CartSeeder extends Seeder
@@ -19,14 +20,19 @@ class CartSeeder extends Seeder
      */
     public function run()
     {
-        $order = Cart::create([
+        $faker = Factory::create();
+
+        $cart = Cart::create([
             'user_id' => User::inRandomOrder()->first()->id,
         ]);
 
         $item = new Item();
         $item->product_id = Product::inRandomOrder()->first()->id;
 
-        $order->items()->save($item);
-        $order->items->first()->ingredients()->attach(Ingredient::inRandomOrder()->first());
+        $cart->items()->save($item);
+        $cart->items->first()->ingredients()->attach(
+            Ingredient::inRandomOrder()->first(),
+            ['price' => $faker->randomFloat(0, 30, 150)]
+        );
     }
 }

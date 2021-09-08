@@ -18,4 +18,14 @@ class Order extends Model
         return $this->morphMany(Item::class, 'itemable');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getSumAttribute()
+    {
+        return $this->items->sum(fn($item) => $item->sum);
+    }
+
 }
