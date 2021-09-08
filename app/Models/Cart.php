@@ -13,4 +13,9 @@ class Cart extends Model
     {
         return $this->morphMany(Item::class, 'itemable');
     }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }

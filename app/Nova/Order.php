@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\BranchId;
+use App\Nova\Filters\RestaurantId;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Currency;
@@ -59,10 +61,8 @@ class Order extends Resource
 
             MorphMany::make('Items'),
 
-
-
-
-
+            BelongsTo::make('Branch'),
+            BelongsTo::make('Restaurant'),
 
         ];
     }
@@ -86,7 +86,10 @@ class Order extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new BranchId(),
+            new RestaurantId(),
+        ];
     }
 
     /**

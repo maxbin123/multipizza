@@ -23,6 +23,16 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
+
     public function getSumAttribute()
     {
         return $this->items->sum(fn($item) => $item->sum);

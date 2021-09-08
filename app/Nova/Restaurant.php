@@ -24,7 +24,7 @@ class Restaurant extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'address';
 
     /**
      * The columns that should be searched.
@@ -59,9 +59,6 @@ class Restaurant extends Resource
 
             Number::make('Longitude'),
             Number::make('Latitude'),
-
-
-
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\Ingredient;
 use App\Models\Item;
 use App\Models\Order;
@@ -22,8 +23,11 @@ class OrderSeeder extends Seeder
     {
         $faker = Factory::create();
 
+        $branch = Branch::inRandomOrder()->first();
         $order = Order::create([
             'user_id' => User::inRandomOrder()->first()->id,
+            'branch_id' => $branch->id,
+            'restaurant_id' => $branch->restaurants()->inRandomOrder()->first()->id,
         ]);
 
         $item = new Item();

@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\BranchId;
 use App\Nova\Filters\CategoryBranch;
 use App\Nova\Filters\CategoryRoot;
 use Illuminate\Http\Request;
@@ -94,7 +95,7 @@ class Category extends Resource
     public function filters(Request $request)
     {
         return [
-            new CategoryBranch(),
+            new BranchId(),
             new CategoryRoot(),
         ];
     }

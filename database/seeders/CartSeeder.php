@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\Cart;
 use App\Models\Ingredient;
 use App\Models\Item;
@@ -24,6 +25,7 @@ class CartSeeder extends Seeder
 
         $cart = Cart::create([
             'user_id' => User::inRandomOrder()->first()->id,
+            'branch_id' => Branch::inRandomOrder()->first()->id,
         ]);
 
         $item = new Item();
