@@ -13,7 +13,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/telescope": "^4.6",
         "laravel/tinker": "^2.5",
-        "orlyapps/nova-belongsto-depend": "^3.0"
+        "orlyapps/nova-belongsto-depend": "^3.0",
+        "spatie/laravel-model-states": "^2.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
