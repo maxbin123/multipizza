@@ -2,15 +2,25 @@
 
 namespace App\Models;
 
+use App\Events\OrderCreated;
+use App\Services\Order\Action\OrderAction;
+use App\Services\Order\State\OrderState;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\ModelStates\HasStates;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, HasStates;
 
     protected $fillable = [
-        'product_id',
+        'user_id',
+        'branch_id',
+        'restaurant_id',
+    ];
+
+    protected $casts = [
+        'state' => OrderState::class,
     ];
 
     public function items()
@@ -36,6 +46,11 @@ class Order extends Model
     public function getSumAttribute()
     {
         return $this->items->sum(fn($item) => $item->sum);
+    }
+
+    public function runAction($action)
+    {
+        OrderAction::run($action, $this);
     }
 
 }
