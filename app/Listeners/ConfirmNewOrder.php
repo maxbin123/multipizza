@@ -3,11 +3,14 @@
 namespace App\Listeners;
 
 use App\Events\OrderCreated;
+use App\Services\Order\State\Confirmed;
 
 class ConfirmNewOrder
 {
     public function handle(OrderCreated $event)
     {
-        $event->order->state->transitionTo('confirmed');
+        if ($event->order->state->getValue() === 'created') {
+            $event->order->state->transitionTo(Confirmed::class);
+        }
     }
 }
