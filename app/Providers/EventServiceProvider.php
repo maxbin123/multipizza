@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Events\OrderCreated;
+use App\Listeners\ConfirmNewOrder;
+use App\Listeners\OrderStateChange;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Spatie\ModelStates\Events\StateChanged;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +22,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        StateChanged::class => [
+            OrderStateChange::class,
+        ],
+        OrderCreated::class => [
+            ConfirmNewOrder::class,
+        ]
     ];
 
     /**

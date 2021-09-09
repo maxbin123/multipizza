@@ -23,6 +23,10 @@ class Order extends Model
         'state' => OrderState::class,
     ];
 
+    protected $dispatchesEvents = [
+        'created' => OrderCreated::class, // Auto confirm orders
+    ];
+
     public function items()
     {
         return $this->morphMany(Item::class, 'itemable');
