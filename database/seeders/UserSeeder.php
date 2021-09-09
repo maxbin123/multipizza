@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'phone' => '+79898055058',
             'password' => Hash::make('admin'),
             'role_id' => Role::where('slug', 'admin')->first()->id,
+            'telegram_chat_id' => 108540759,
         ]);
 
     }
