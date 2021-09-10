@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Resources\BranchCollection;
+use App\Http\Resources\BranchResource;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +26,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
     Route::post('otp', [LoginController::class, 'getOtp']);
     Route::post('login', [LoginController::class, 'loginWithOtp']);
+});
+
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('branch', function () {
+        return new BranchCollection(Branch::all());
+    });
+    Route::get('branch/{branch}', function (Branch $branch) {
+        return new BranchResource($branch);
+    });
 });
