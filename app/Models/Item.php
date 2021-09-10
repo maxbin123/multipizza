@@ -28,12 +28,12 @@ class Item extends Model
 
     public function getNameAttribute($value)
     {
-        return is_null($value) ? $this->product->name : $value;
+        return is_null($value) && $this->product ? $this->product->name : $value;
     }
 
     public function getPriceAttribute($value)
     {
-        return is_null($value) ? $this->product->price : $value;
+        return is_null($value) && $this->product ? $this->product->price : $value;
     }
 
     public function getSumAttribute($value)

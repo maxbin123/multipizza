@@ -47,6 +47,11 @@ class Order extends Model
         return $this->belongsTo(Restaurant::class);
     }
 
+    public function delivery()
+    {
+        return $this->belongsTo(User::class, 'delivery_id');
+    }
+
     public function getSumAttribute()
     {
         return $this->items->sum(fn($item) => $item->sum);

@@ -53,7 +53,7 @@ class Order extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User'),
-            Currency::make('Sum')->currency('RUB'),
+            Currency::make('Sum')->currency('RUB')->hideWhenCreating()->hideWhenUpdating(),
             DateTime::make('Created At'),
 
             Status::make('State')
@@ -61,6 +61,8 @@ class Order extends Resource
                 ->failedWhen(['failed']),
 
             MorphMany::make('Items'),
+
+            BelongsTo::make('Delivery', 'delivery', User::class)->nullable(),
 
             BelongsTo::make('Branch'),
             BelongsTo::make('Restaurant'),

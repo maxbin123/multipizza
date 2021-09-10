@@ -25,5 +25,14 @@ class UserSeeder extends Seeder
             'telegram_chat_id' => 108540759,
         ]);
 
+        User::create([
+            'name' => 'Delivery Man',
+            'email' => 'delivery@delivery.com',
+            'phone' => '+79898055000',
+            'password' => Hash::make('delivery'),
+            'role_id' => Role::where('slug', 'delivery')->first()->id,
+            'telegram_chat_id' => 108540759,
+        ]);
+
     }
 }
