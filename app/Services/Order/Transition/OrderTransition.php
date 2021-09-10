@@ -16,7 +16,9 @@ abstract class OrderTransition extends Transition
         $this->order = $order;
     }
 
-    public function handle(): Order {
+    public function handle(): Order
+    {
+        $this->order->save();
         return $this->order;
     }
 

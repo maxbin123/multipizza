@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ChangeOrderState;
 use App\Nova\Filters\BranchId;
 use App\Nova\Filters\RestaurantId;
 use Illuminate\Http\Request;
@@ -55,9 +56,9 @@ class Order extends Resource
             Currency::make('Sum')->currency('RUB'),
             DateTime::make('Created At'),
 
-            Status::make('Status')
-                ->loadingWhen(['new', 'approved'])
-                ->failedWhen(['cancelled', 'refunded']),
+            Status::make('State')
+                ->loadingWhen(['confirmed', 'delivering'])
+                ->failedWhen(['failed']),
 
             MorphMany::make('Items'),
 
@@ -111,6 +112,8 @@ class Order extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            (new ChangeOrderState($request->resourceId))->onlyOnDetail(),
+        ];
     }
 }
