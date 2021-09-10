@@ -14,7 +14,7 @@ class AddTelegramChatIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('telegram_chat_id')->after('role_id')->nullable();
+            $table->integer('≈')->after('role_id')->nullable();
         });
     }
 
