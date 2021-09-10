@@ -14,6 +14,8 @@ class BranchResource extends JsonResource
             'slug' => $this->slug,
             'logo' => $this->logo,
             'restaurants' => RestaurantResource::collection($this->restaurants),
+            'categories' => CategoryResource::collection($this->categories),
+            'products' => ProductResource::collection($this->products),
         ];
     }
 }

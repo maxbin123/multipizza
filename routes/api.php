@@ -3,7 +3,9 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Resources\BranchCollection;
 use App\Http\Resources\BranchResource;
+use App\Http\Resources\CategoryResource;
 use App\Models\Branch;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,4 +37,5 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function () {
     Route::get('branch/{branch}', function (Branch $branch) {
         return new BranchResource($branch);
     });
+
 });
