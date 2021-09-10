@@ -13,7 +13,6 @@ class LoginController extends Controller
         $user = User::where('phone', $phone)->first();
         $token = app('otp')->create($user->id, $length = 4);
         $user->notify($token->toNotification());
-        return $token->plainText();
     }
 
     public function loginWithOtp(Request $request)
