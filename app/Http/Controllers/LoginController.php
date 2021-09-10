@@ -4,28 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
     public function getOtp(Request $request)
     {
-        $phone = $request->phone;
-        $user = User::where('phone', $phone)->first();
+        $user = User::findOrCreateByPhone($request->phone);
         $token = app('otp')->create($user->id, $length = 4);
         $user->notify($token->toNotification());
     }
 
     public function loginWithOtp(Request $request)
     {
-        $phone = $request->phone;
-        $otp = $request->otp;
+        $user = User::findOrCreateByPhone($request->phone);
+        $validator = Validator::make($request->all(), [
+            'phone' => [
+                'required',
+                'string',
+                'min:8',
+                'max:16'
+            ],
+            'otp' => [
+                'required',
+                'digits:4',
+                function ($attribute, $value, $fail) use ($user) {
+                    if (!app('otp')->check($user->id, $value)) {
+                        $fail('OTP is invalid.');
+                    }
+                },
+            ]
+        ]);
 
-        $user = User::where('phone', $phone)->first();
-        if (app('otp')->check($user->id, $otp)) {
-            $token = $user->createToken('login');
-            return ['token' => $token->plainTextToken];
-        } else {
-            abort(403, 'Invalid OTP code');
+        if ($validator->fails()) {
+            return ['error' => $validator->errors()->messages()];
         }
+
+        $token = $user->createToken('login');
+        return ['token' => $token->plainTextToken];
     }
 }

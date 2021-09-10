@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
     ];
 
     /**
@@ -58,4 +59,16 @@ class User extends Authenticatable
     {
         return $this->phone;
     }
+
+    public static function findOrCreateByPhone($phone)
+    {
+        $user = User::where('phone', $phone)->first();
+        if (!$user) {
+            $user = User::create([
+                'phone' => $phone,
+            ]);
+        }
+        return $user;
+    }
 }
+
