@@ -59,6 +59,7 @@ class Product extends Resource
             Currency::make('Price')->currency('RUB'),
 
             BelongsTo::make('Category'),
+            BelongsTo::make('Branch'),
 
             BelongsToMany::make('Ingredients')
                 ->fields(function () {
