@@ -53,4 +53,9 @@ class User extends Authenticatable
             $query->where('slug', 'admin');
         });
     }
+
+    public function routeNotificationForTwilio()
+    {
+        return $this->phone;
+    }
 }
