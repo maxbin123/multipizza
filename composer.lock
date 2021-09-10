@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e8db19d32feaf5256b2d1575ae7f7cc",
+    "content-hash": "491f11d0885eb6124471475b393e0c84",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -966,6 +966,79 @@
             "time": "2020-12-29T14:50:06+00:00"
         },
         {
+            "name": "erdemkeren/laravel-otp",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erdemkeren/laravel-otp.git",
+                "reference": "01f1ed78d0e2c874e57b10dab7992e5f018a10fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erdemkeren/laravel-otp/zipball/01f1ed78d0e2c874e57b10dab7992e5f018a10fc",
+                "reference": "01f1ed78d0e2c874e57b10dab7992e5f018a10fc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.0",
+                "illuminate/http": "^8.0",
+                "illuminate/notifications": "^8.0",
+                "illuminate/routing": "^8.0",
+                "illuminate/support": "^8.0",
+                "nesbot/carbon": "^2.35",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "illuminate/config": "^8.0",
+                "mockery/mockery": "~1.4.3",
+                "phpunit/phpunit": "8.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Erdemkeren\\Otp\\OtpServiceProvider"
+                    ],
+                    "aliases": {
+                        "Otp": "Erdemkeren\\Otp\\OtpFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Erdemkeren\\Otp\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hilmi Erdem KEREN",
+                    "email": "erdemkeren@gmail.com"
+                },
+                {
+                    "name": "Berkay Güre",
+                    "email": "bgure@hotmail.com.tr"
+                }
+            ],
+            "description": "Secure your laravel routes with otps. (one time passwords)",
+            "homepage": "https://github.com/erdemkeren/laravel-otp",
+            "keywords": [
+                "laravel",
+                "middleware",
+                "one time passwords",
+                "one time pin",
+                "otp"
+            ],
+            "support": {
+                "issues": "https://github.com/erdemkeren/laravel-otp/issues",
+                "source": "https://github.com/erdemkeren/laravel-otp/tree/v4.0.0"
+            },
+            "time": "2021-08-04T19:33:59+00:00"
+        },
+        {
             "name": "facade/ignition-contracts",
             "version": "1.0.2",
             "source": {
@@ -1509,6 +1582,78 @@
                 "source": "https://github.com/laravel-notification-channels/telegram/tree/0.5.1"
             },
             "time": "2020-12-06T19:00:18+00:00"
+        },
+        {
+            "name": "laravel-notification-channels/twilio",
+            "version": "3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-notification-channels/twilio.git",
+                "reference": "509c76853124418ca21f3257c0c832cc5018cfd2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-notification-channels/twilio/zipball/509c76853124418ca21f3257c0c832cc5018cfd2",
+                "reference": "509c76853124418ca21f3257c0c832cc5018cfd2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/events": "^5.8 || ^6.0 || ^7.0 || ^8.0",
+                "illuminate/notifications": "^5.8 || ^6.0 || ^7.0 || ^8.0",
+                "illuminate/queue": "^5.8 || ^6.0 || ^7.0 || ^8.0",
+                "illuminate/support": "^5.8 || ^6.0 || ^7.0 || ^8.0",
+                "php": ">=7.2",
+                "twilio/sdk": "~6.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NotificationChannels\\Twilio\\TwilioProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\Twilio\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gregorio Hernández Caso",
+                    "email": "gregoriohc@gmail.com",
+                    "homepage": "https://github.com/gregoriohc",
+                    "role": "Developer"
+                },
+                {
+                    "name": "atymic",
+                    "email": "atymicq@gmail.com",
+                    "homepage": "https://atymic.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides Twilio notification channel for Laravel",
+            "keywords": [
+                "call",
+                "laravel",
+                "mms",
+                "notification",
+                "sms",
+                "twilio"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-notification-channels/twilio/issues",
+                "source": "https://github.com/laravel-notification-channels/twilio"
+            },
+            "time": "2020-10-19T20:04:03+00:00"
         },
         {
             "name": "laravel/framework",
@@ -6724,6 +6869,60 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.3"
             },
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "6.28.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twilio/twilio-php.git",
+                "reference": "530be7f621fc8fb1d2af5ba5a70e278f262e048f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/530be7f621fc8fb1d2af5ba5a70e278f262e048f",
+                "reference": "530be7f621fc8fb1d2af5ba5a70e278f262e048f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3 || ^7.0",
+                "phpunit/phpunit": ">=4.5",
+                "theseer/phpdox": "^0.12.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "http://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "support": {
+                "issues": "https://github.com/twilio/twilio-php/issues",
+                "source": "https://github.com/twilio/twilio-php/tree/6.28.2"
+            },
+            "time": "2021-09-08T19:54:49+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
