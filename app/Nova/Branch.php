@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
@@ -57,7 +58,8 @@ class Branch extends Resource
             Number::make('Delivery Price'),
             Number::make('Free Delivery Sum'),
 
-            HasMany::make('Restaurants')
+            HasMany::make('Restaurants'),
+            HasManyThrough::make('Products'),
         ];
     }
 
