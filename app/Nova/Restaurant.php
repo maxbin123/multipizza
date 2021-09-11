@@ -2,13 +2,13 @@
 
 namespace App\Nova;
 
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Restaurant extends Resource
 {
@@ -57,8 +57,13 @@ class Restaurant extends Resource
             Number::make('Start Hour'),
             Number::make('Finish Hour'),
 
-            Number::make('Longitude'),
-            Number::make('Latitude'),
+            MapMarker::make('Location')
+                ->latitude('latitude')
+                ->longitude('longitude')
+                ->defaultZoom(16),
+
+//            Number::make('Longitude'),
+//            Number::make('Latitude'),
         ];
     }
 
