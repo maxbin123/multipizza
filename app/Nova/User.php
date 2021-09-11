@@ -54,16 +54,16 @@ class User extends Resource
 
             Text::make('Email')
                 ->sortable()
-                ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Text::make('Phone'),
+            Text::make('Phone')
+                ->rules('required')
+                ->creationRules('unique:users,phone')
+                ->updateRules('unique:users,phone,{{resourceId}}'),
 
             Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8'),
+                ->onlyOnForms(),
 
             HasMany::make('Orders'),
         ];

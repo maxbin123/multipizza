@@ -53,7 +53,7 @@ class Order extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('User'),
+            BelongsTo::make('User')->showCreateRelationButton()->searchable(),
 
             Currency::make('Sum')->currency('RUB')->hideWhenCreating()->hideWhenUpdating(),
             DateTime::make('Created At'),
@@ -67,7 +67,8 @@ class Order extends Resource
             MapMarker::make('Location')
                 ->latitude('latitude')
                 ->longitude('longitude')
-                ->defaultZoom(16),
+                ->defaultZoom(16)
+                ->searchProvider('openstreetmap'),
 
             Text::make('Distance', function () {
                 return $this->model()->restaurantDistance() . ' km';
@@ -75,7 +76,7 @@ class Order extends Resource
 
             MorphMany::make('Items'),
 
-            BelongsTo::make('Delivery', 'delivery', User::class)->nullable(),
+            BelongsTo::make('Delivery', 'delivery', User::class)->nullable()->searchable(),
 
             BelongsTo::make('Branch'),
             BelongsTo::make('Restaurant'),
