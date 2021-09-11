@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use App\Events\OrderCreated;
-use App\Services\Order\Action\OrderAction;
 use App\Services\Order\State\OrderState;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Malhal\Geographical\Geographical;
 use Spatie\ModelStates\HasStates;
 
 class Order extends Model
 {
-    use HasFactory, HasStates;
+    use HasFactory, HasStates, Geographical;
 
     protected $fillable = [
         'user_id',
@@ -26,6 +26,8 @@ class Order extends Model
     protected $dispatchesEvents = [
         'created' => OrderCreated::class, // Auto confirm orders
     ];
+
+    protected static $kilometers = true;
 
     public function items()
     {
@@ -57,9 +59,14 @@ class Order extends Model
         return $this->items->sum(fn($item) => $item->sum);
     }
 
-    public function runAction($action)
+    public function getNearestRestaurant(): Restaurant
     {
-        OrderAction::run($action, $this);
+        return Restaurant::where('branch_id', $this->branch_id)->distance($this->latitude, $this->longitude)->orderBy('distance', 'ASC')->first();
+    }
+
+    public function restaurantDistance()
+    {
+        return round($this->getNearestRestaurant()->distance, 1);
     }
 
 }

@@ -5,15 +5,16 @@ namespace App\Nova;
 use App\Nova\Actions\ChangeOrderState;
 use App\Nova\Filters\BranchId;
 use App\Nova\Filters\RestaurantId;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Currency;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Status;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Panel;
 
 class Order extends Resource
 {
@@ -53,12 +54,24 @@ class Order extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User'),
+
             Currency::make('Sum')->currency('RUB')->hideWhenCreating()->hideWhenUpdating(),
             DateTime::make('Created At'),
 
             Status::make('State')
                 ->loadingWhen(['confirmed', 'delivering'])
                 ->failedWhen(['failed']),
+
+            new Panel('Address Information', $this->addressFields()),
+
+            MapMarker::make('Location')
+                ->latitude('latitude')
+                ->longitude('longitude')
+                ->defaultZoom(16),
+
+            Text::make('Distance', function () {
+                return $this->model()->restaurantDistance() . ' km';
+            }),
 
             MorphMany::make('Items'),
 
@@ -70,6 +83,16 @@ class Order extends Resource
         ];
     }
 
+    protected function addressFields()
+    {
+        return [
+            Text::make('Address'),
+            Text::make('Door')->hideFromIndex(),
+            Text::make('Floor')->hideFromIndex(),
+            Text::make('Flat')->hideFromIndex(),
+            Text::make('Code')->hideFromIndex(),
+        ];
+    }
 
 
     /**
