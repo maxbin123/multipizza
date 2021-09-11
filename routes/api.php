@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Resources\BranchCollection;
 use App\Http\Resources\BranchResource;
@@ -31,6 +32,9 @@ Route::group(['prefix' => 'v1'], function () {
 });
 
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('user', function (Request $request) {
+        return $request->user();
+    });
     Route::get('branch', function () {
         return new BranchCollection(Branch::all());
     });

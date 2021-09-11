@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Notifications\Otp\TwilioTokenNotification;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Laravel\Sanctum\Sanctum;
 use Notification;
 use Otp;
 use Tests\TestCase;
@@ -47,5 +48,16 @@ class CustomerOtpLoginTest extends TestCase
             $json->has('token')
                 ->whereType('token', 'string');
         });
+    }
+
+    public function test_user_request()
+    {
+        $response = $this->getJson('api/v1/user');
+        $response->assertStatus(401);
+
+        Sanctum::actingAs(User::where('role_id', 2)->first(), ['customer']);
+        $response = $this->getJson('api/v1/user');
+        $response->assertStatus(200);
+        $response->assertJson(['role_id' => 2]);
     }
 }
