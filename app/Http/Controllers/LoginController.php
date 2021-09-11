@@ -12,7 +12,7 @@ class LoginController extends Controller
     public function getOtp(Request $request)
     {
         $user = User::findOrCreateByPhone($request->phone);
-        $token = Otp::create($user, $length = 4);
+        $token = Otp::create($user, 4);
         $user->notify($token->toNotification());
     }
 
@@ -42,7 +42,7 @@ class LoginController extends Controller
             return ['error' => $validator->errors()->messages()];
         }
 
-        $token = $user->createToken('login');
+        $token = $user->createToken('customer');
         return ['token' => $token->plainTextToken];
     }
 }
