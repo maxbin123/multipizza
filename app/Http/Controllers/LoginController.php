@@ -11,7 +11,7 @@ class LoginController extends Controller
     public function getOtp(Request $request)
     {
         $user = User::findOrCreateByPhone($request->phone);
-        $token = app('otp')->create($user->id, $length = 4);
+        $token = app('otp')->create($user, $length = 4);
         $user->notify($token->toNotification());
     }
 
@@ -29,7 +29,8 @@ class LoginController extends Controller
                 'required',
                 'digits:4',
                 function ($attribute, $value, $fail) use ($user) {
-                    if (!app('otp')->check($user->id, $value)) {
+                    $token = app('otp')->retrieveByPlainText($user, $value);
+                    if (!$token || $token->expired()) {
                         $fail('OTP is invalid.');
                     }
                 },
