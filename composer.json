@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "erdemkeren/laravel-otp": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
+        "genealabs/nova-map-marker-field": "^0.3.1",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel-notification-channels/telegram": "^0.5.1",
         "laravel-notification-channels/twilio": "^3.1",
