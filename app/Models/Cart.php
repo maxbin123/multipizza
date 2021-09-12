@@ -9,6 +9,11 @@ class Cart extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'branch_id',
+    ];
+
     public function items()
     {
         return $this->morphMany(Item::class, 'itemable');
@@ -17,5 +22,10 @@ class Cart extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

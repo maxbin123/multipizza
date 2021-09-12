@@ -19,6 +19,11 @@ class Restaurant extends Model
         return $this->belongsTo(Branch::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     protected static function booted()
     {
         // Client passes his coordinates in header, distance limit automatically applied

@@ -5,6 +5,7 @@ namespace App\Nova;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Place;
@@ -61,6 +62,8 @@ class Restaurant extends Resource
                 ->latitude('latitude')
                 ->longitude('longitude')
                 ->defaultZoom(16),
+
+            HasMany::make('Orders'),
 
 //            Number::make('Longitude'),
 //            Number::make('Latitude'),
