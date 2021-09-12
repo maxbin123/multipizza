@@ -10,6 +10,12 @@ class Role extends Model
 {
     use HasFactory;
 
+    const ADMINISTRATOR = 1;
+    const CUSTOMER = 2;
+    const MANAGER = 3;
+    const DELIVERY = 4;
+    const COOK = 5;
+
     public $timestamps = false;
 
     public function users() {
