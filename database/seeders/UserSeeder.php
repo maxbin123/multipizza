@@ -23,24 +23,29 @@ class UserSeeder extends Seeder
                 'email' => 'admin@admin.com',
                 'phone' => '+79898055058',
                 'password' => Hash::make('admin'),
+                'restaurant_id' => null,
             ]);
         User::factory()
             ->for(Role::bySlug('delivery')->first())
-            ->count(5)
-            ->create();
+            ->count(100)
+            ->create([
+                'restaurant_id' => null,
+            ]);
         User::factory()
             ->for(Role::bySlug('manager')->first())
-            ->count(2)
+            ->count(60)
             ->create();
         User::factory()
             ->for(Role::bySlug('cook')->first())
-            ->createOne();
+            ->count(60)
+            ->create();
         User::factory()
             ->for(Role::bySlug('customer')->first())
             ->count(300)
             ->create([
                 'email' => '',
                 'password' => '',
+                'restaurant_id' => null,
             ]);
     }
 }

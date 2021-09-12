@@ -54,7 +54,12 @@ class User extends Authenticatable
 
     public function orders()
     {
-        return $this->hasMany(Order::make());
+        return $this->hasMany(Order::class);
+    }
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
     }
 
     public function scopeAdmins(Builder $query)

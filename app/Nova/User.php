@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Filters\UserType;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -64,6 +65,8 @@ class User extends Resource
 
             Password::make('Password')
                 ->onlyOnForms(),
+
+            BelongsTo::make('Restaurant'),
 
             HasMany::make('Orders'),
         ];

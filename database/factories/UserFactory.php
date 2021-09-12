@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -26,6 +27,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'phone' => $this->faker->unique()->e164PhoneNumber(),
             'email' => $this->faker->safeEmail(),
+            'restaurant_id' => Restaurant::inRandomOrder()->first()->id,
             'telegram_chat_id' => $this->faker->numberBetween(100000000, 200000000),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

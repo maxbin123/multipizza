@@ -17,8 +17,8 @@ class RestaurantFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'start_hour' => $this->faker->numberBetween(7, 10),
             'finish_hour' => $this->faker->numberBetween(20, 23),
-            'longitude' => $this->faker->longitude(38, 39),
-            'latitude' => $this->faker->latitude(44, 45),
+            'longitude' => $this->faker->longitude(38.9, 39.1),
+            'latitude' => $this->faker->latitude(45, 45.2),
             'branch_id' => Branch::inRandomOrder()->first()->id,
         ];
     }

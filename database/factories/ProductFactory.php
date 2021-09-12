@@ -25,7 +25,7 @@ class ProductFactory extends Factory
         return [
             'name' => ucfirst($this->faker->words(2, true)),
             'description' => $this->faker->sentences(3, true),
-            'image' => $this->faker->image('public/storage',640,480, null, false),
+//            'image' => $this->faker->image('public/storage',640,480, null, false),
             'category_id' => Category::inRandomOrder()->first()->id,
             'price' => $this->faker->randomFloat(0, 90, 400),
         ];
