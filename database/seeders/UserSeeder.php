@@ -16,23 +16,31 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
-            'phone' => '+79898055058',
-            'password' => Hash::make('admin'),
-            'role_id' => Role::where('slug', 'admin')->first()->id,
-            'telegram_chat_id' => 108540759,
-        ]);
-
-        User::create([
-            'name' => 'Delivery Man',
-            'email' => 'delivery@delivery.com',
-            'phone' => '+79898055000',
-            'password' => Hash::make('delivery'),
-            'role_id' => Role::where('slug', 'delivery')->first()->id,
-            'telegram_chat_id' => 108540759,
-        ]);
-
+        User::factory()
+            ->for(Role::bySlug('admin')->first())
+            ->createOne([
+                'name' => 'Admin',
+                'email' => 'admin@admin.com',
+                'phone' => '+79898055058',
+                'password' => Hash::make('admin'),
+            ]);
+        User::factory()
+            ->for(Role::bySlug('delivery')->first())
+            ->count(5)
+            ->create();
+        User::factory()
+            ->for(Role::bySlug('manager')->first())
+            ->count(2)
+            ->create();
+        User::factory()
+            ->for(Role::bySlug('cook')->first())
+            ->createOne();
+        User::factory()
+            ->for(Role::bySlug('customer')->first())
+            ->count(300)
+            ->create([
+                'email' => '',
+                'password' => '',
+            ]);
     }
 }

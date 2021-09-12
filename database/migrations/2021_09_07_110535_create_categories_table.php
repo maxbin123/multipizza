@@ -24,8 +24,6 @@ class CreateCategoriesTable extends Migration
             $table->foreignIdFor(Branch::class);
 
             $table->timestamps();
-
-            $table->unique(['branch_id', 'slug']);
         });
     }
 

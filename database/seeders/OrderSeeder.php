@@ -21,22 +21,6 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-
-        $branch = Branch::inRandomOrder()->first();
-        $order = Order::create([
-            'user_id' => User::inRandomOrder()->first()->id,
-            'branch_id' => $branch->id,
-            'restaurant_id' => $branch->restaurants()->inRandomOrder()->first()->id,
-        ]);
-
-        $item = new Item();
-        $item->product_id = Product::inRandomOrder()->first()->id;
-
-        $order->items()->save($item);
-        $order->items->first()->ingredients()->attach(
-            Ingredient::inRandomOrder()->first(),
-            ['price' => $faker->randomFloat(0, 30, 150)]
-        );
+        Order::factory()->count(500)->hasItems(4)->create();
     }
 }

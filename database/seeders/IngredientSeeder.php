@@ -19,16 +19,13 @@ class IngredientSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        Ingredient::factory()->count(25)->create();
-
-        Ingredient::all()->each(function ($ingredient) use ($faker) {
-            $ingredient->products()->attach(
-                Product::inRandomOrder()->first()->id,
+        Ingredient::factory()
+            ->hasAttached(
+                Product::inRandomOrder()->get(),
                 [
-                    'price' => $faker->randomFloat(0, 25, 100),
+                    'price' => $faker->randomFloat(0, 25, 100)
                 ]
-            );
-        });
-
+            )
+            ->count(3)->create();
     }
 }
