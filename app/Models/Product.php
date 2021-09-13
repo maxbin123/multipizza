@@ -11,6 +11,11 @@ class Product extends Model
     use HasFactory;
     use BelongsToThrough;
 
+    protected $with = [
+        'category',
+        'branch'
+    ];
+
     public function category() {
         return $this->belongsTo(Category::class)->with('branch');
     }

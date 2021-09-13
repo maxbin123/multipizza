@@ -14,6 +14,10 @@ class Restaurant extends Model
     const DISTANCE_LIMIT = 4;
     protected static $kilometers = true;
 
+    protected $with = [
+        'branch',
+    ];
+
     public function branch()
     {
         return $this->belongsTo(Branch::class);

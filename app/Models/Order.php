@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Malhal\Geographical\Geographical;
-use phpseclib3\File\ASN1\Maps\Name;
 use Spatie\ModelStates\HasStates;
 
 class Order extends Model
@@ -29,6 +28,13 @@ class Order extends Model
         'created' => OrderCreated::class, // Auto confirm orders
     ];
 
+    protected $with = [
+        'items',
+        'user',
+        'branch',
+        'restaurant'
+    ];
+
     protected static $kilometers = true;
 
     public function items()
@@ -38,7 +44,7 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->with('restaurant');
     }
 
     public function branch()
@@ -63,7 +69,7 @@ class Order extends Model
 
     public function getNearestRestaurant(): Restaurant
     {
-        return Restaurant::where('branch_id', $this->branch_id)->distance($this->latitude, $this->longitude)->orderBy('distance', 'ASC')->first();
+        return Restaurant::where('branch_id', $this->branch->id)->distance($this->latitude, $this->longitude)->orderBy('distance', 'ASC')->first();
     }
 
     public function restaurantDistance()

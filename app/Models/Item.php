@@ -11,6 +11,12 @@ class Item extends Model
 
     protected $guarded = [];
 
+    protected $with = [
+        'product',
+        'ingredients'
+    ];
+
+
     public function itemable()
     {
         return $this->morphTo();
@@ -36,7 +42,7 @@ class Item extends Model
         return is_null($value) && $this->product ? $this->product->price : $value;
     }
 
-    public function getSumAttribute($value)
+    public function getSumAttribute()
     {
         $ingredients_sum = $this->ingredients->sum('pivot.price');
         $item_sum = $this->price * $this->quantity;
