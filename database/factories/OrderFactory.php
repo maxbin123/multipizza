@@ -18,7 +18,7 @@ class OrderFactory extends Factory
         $branch = Branch::inRandomOrder()->first();
 
         return [
-            'state' => Arr::random(['confirmed', 'taken', 'ready', 'delivering', 'done', 'failed']),
+            'state' => Arr::random(['confirmed', 'taken', 'cooking', 'ready', 'delivering', 'done', 'failed']),
             'longitude' => $this->faker->longitude(38.9, 39.1),
             'latitude' => $this->faker->latitude(45, 45.2),
             'address' => $this->faker->streetAddress,
