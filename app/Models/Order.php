@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Events\OrderCreated;
 use App\Services\Order\State\OrderState;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Malhal\Geographical\Geographical;
+use phpseclib3\File\ASN1\Maps\Name;
 use Spatie\ModelStates\HasStates;
 
 class Order extends Model
@@ -67,6 +69,11 @@ class Order extends Model
     public function restaurantDistance()
     {
         return round($this->getNearestRestaurant()->distance, 1);
+    }
+
+    public function scopeInDelivery(Builder $query)
+    {
+        return $query->whereIn('state', ['confirmed', 'taken', 'delivering']);
     }
 
 }

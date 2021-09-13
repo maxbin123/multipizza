@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Filters\UserType;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Gravatar;
@@ -10,6 +11,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class User extends Resource
 {
@@ -70,6 +72,23 @@ class User extends Resource
 
             HasMany::make('Orders'),
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isDelivery()) {
+            return $query->whereHas('orders', function (Builder $query) use ($request) {
+                $query
+                    ->where('delivery_id', $request->user()->id)
+                    ->whereIn('state', ['confirmed', 'taken', 'ready', 'delivering']);
+            });
+        }
+        if ($request->user()->isManager()) {
+            return $query->whereHas('orders', function (Builder $query) use ($request) {
+                $query
+                    ->where('restaurant_id', $request->user()->restaurant->id);
+            });
+        }
     }
 
     /**

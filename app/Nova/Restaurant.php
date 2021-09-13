@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Restaurant extends Resource
 {
@@ -68,6 +69,13 @@ class Restaurant extends Resource
 //            Number::make('Longitude'),
 //            Number::make('Latitude'),
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isManager()) {
+            return $query->where('id', $request->user()->restaurant->id);
+        }
     }
 
     /**

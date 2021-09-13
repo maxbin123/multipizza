@@ -6,6 +6,7 @@ use App\Nova\Actions\ChangeOrderState;
 use App\Nova\Filters\BranchId;
 use App\Nova\Filters\RestaurantId;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Currency;
@@ -14,6 +15,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Status;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 
 class Order extends Resource
@@ -93,6 +95,24 @@ class Order extends Resource
             Text::make('Flat')->hideFromIndex(),
             Text::make('Code')->hideFromIndex(),
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isDelivery()) {
+            if ($request->user()->deliveryActive) {
+                return $query->where('delivery_id', $request->user()->id)->inDelivery()->limit(2);
+            } else {
+                return $query->where('state', 'confirmed');
+            }
+        }
+        if ($request->user()->isManager()) {
+            return $query->where('restaurant_id', $request->user()->restaurant->id);
+        }
+        if ($request->user()->isCook()) {
+            return $query->where('restaurant_id', $request->user()->restaurant->id)
+                ->whereIn('state', ['taken', 'cooking']);
+        }
     }
 
 

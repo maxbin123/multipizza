@@ -57,6 +57,16 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function delivery()
+    {
+        return $this->hasMany(Order::class, 'delivery_id');
+    }
+
+    public function deliveryActive()
+    {
+        return $this->hasMany(Order::class, 'delivery_id')->where('state', 'delivering');
+    }
+
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
@@ -67,6 +77,48 @@ class User extends Authenticatable
         return $query->whereHas('role', function (Builder $query) {
             $query->where('slug', 'admin');
         });
+    }
+
+    public function deliveries()
+    {
+        static $deliveries;
+
+        if (!$deliveries) {
+            $deliveries = $this->orders->pluck('delivery_id');
+        }
+        return $deliveries;
+    }
+
+    public function scopeOrdersInRestaurant(Builder $query, $restaurant_id)
+    {
+        return $query->whereHas('orders', function (Builder $query) use ($restaurant_id) {
+            $query->where('restaurant_id', $restaurant_id);
+        });
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role->id === Role::ADMINISTRATOR;
+    }
+
+    public function isDelivery(): bool
+    {
+        return $this->role->id === Role::DELIVERY;
+    }
+
+    public function isManager(): bool
+    {
+        return $this->role->id === Role::MANAGER;
+    }
+
+    public function isCook(): bool
+    {
+        return $this->role->id === Role::COOK;
+    }
+
+    public function hasActiveDelivery()
+    {
+        return $this->delivery()->where('state', 'delivering');
     }
 
     public function routeNotificationForTwilio()

@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -68,6 +69,15 @@ class Product extends Resource
                     ];
                 }),
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isManager()) {
+            return $query->whereHas('branch', function (Builder $query) use ($request) {
+                $query->where('branches.id', $request->user()->restaurant->branch->id);
+            });
+        }
     }
 
     /**
