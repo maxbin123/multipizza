@@ -8,7 +8,7 @@ use App\Models\Restaurant;
 
 class OrderController extends Controller
 {
-    public function create(OrderRequest $request)
+    public function store(OrderRequest $request)
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
@@ -30,5 +30,19 @@ class OrderController extends Controller
             }
         }
         return $order;
+    }
+
+    public function index()
+    {
+        return auth()->user()->orders;
+    }
+
+    public function show(Order $order)
+    {
+        if ($order->user->id === auth()->user()->id) {
+            return $order;
+        } else {
+            abort(401);
+        }
     }
 }
