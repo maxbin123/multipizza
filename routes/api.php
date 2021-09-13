@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Resources\BranchCollection;
 use App\Http\Resources\BranchResource;
 use App\Http\Resources\CategoryResource;

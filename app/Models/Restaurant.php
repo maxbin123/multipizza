@@ -39,4 +39,9 @@ class Restaurant extends Model
             }
         });
     }
+
+    public function scopeNearest(Builder $query, $branch_id, $latitude, $longitude)
+    {
+        $query->where('branch_id', $branch_id)->distance($latitude, $longitude)->orderBy('distance', 'ASC');
+    }
 }

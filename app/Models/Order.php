@@ -14,10 +14,8 @@ class Order extends Model
 {
     use HasFactory, HasStates, Geographical;
 
-    protected $fillable = [
-        'user_id',
-        'branch_id',
-        'restaurant_id',
+    protected $guarded = [
+        'state',
     ];
 
     protected $casts = [
