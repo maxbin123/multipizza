@@ -26,6 +26,10 @@ class Order extends Model
         'created' => OrderCreated::class, // Auto confirm orders
     ];
 
+    protected $appends = [
+        'sum',
+    ];
+
     protected $with = [
         'items',
         'user',
