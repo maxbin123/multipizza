@@ -9,12 +9,19 @@ use App\Models\Role;
 use App\Models\User;
 use App\Notifications\Staff\OrderCreated;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Queue;
 use Laravel\Sanctum\Sanctum;
+use NotificationChannels\Telegram\TelegramMessage;
+use Tests\CreatesApplication;
 use Tests\TestCase;
 
 class OrderTest extends TestCase
 {
+    use CreatesApplication, RefreshDatabase;
+
+    protected $seed = true;
 
     public function test_new_order()
     {
@@ -32,6 +39,7 @@ class OrderTest extends TestCase
         })->withOnly('ingredients')->inRandomOrder()->limit(3)->get();
 
         Notification::fake();
+//        Queue::fake();
 
         $response = $this->postJson('api/v1/order', [
             'name' => 'Customer',
@@ -86,6 +94,7 @@ class OrderTest extends TestCase
         ]);
 
         Notification::assertSentTo(User::admins()->get(), OrderCreated::class);
+//        Queue::assertPushed(TelegramMessage::class);
     }
 
     public function test_index_order()
